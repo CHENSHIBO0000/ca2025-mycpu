@@ -27,7 +27,8 @@ BINS = \
 	quicksort.asmbin \
 	sb.asmbin \
 	uart.asmbin \
-	irqtrap.asmbin
+	irqtrap.asmbin\
+	uf8.asmbin
 
 # Clear the .DEFAULT_GOAL special variable, so that the following turns
 # to the first target after .DEFAULT_GOAL is not set.

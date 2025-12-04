@@ -37,6 +37,18 @@ class PipelineProgramTest extends AnyFlatSpec with ChiselScalatestTester {
       }
     }
 
+    it should "perform uf8 encode and decode" in {
+      runProgram("uf8.asmbin", cfg) { c =>
+        for (i <- 1 to 100) {
+          c.clock.step(1000)
+          c.io.mem_debug_read_address.poke((i * 4).U)
+        }
+        c.io.mem_debug_read_address.poke(4.U)
+        c.clock.step()
+        c.io.mem_debug_read_data.expect(1.U)
+      }
+    }
+
     it should "quicksort 10 numbers" in {
       runProgram("quicksort.asmbin", cfg) { c =>
         for (i <- 1 to 50) {
