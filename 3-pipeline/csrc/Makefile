@@ -1,3 +1,4 @@
+
 CROSS_COMPILE ?= $(HOME)/riscv/toolchain/bin/riscv-none-elf-
 
 ASFLAGS = -march=rv32i_zicsr -mabi=ilp32
@@ -9,8 +10,13 @@ CC := $(CROSS_COMPILE)gcc
 LD := $(CROSS_COMPILE)ld
 OBJCOPY := $(CROSS_COMPILE)objcopy
 
+
 %.o: %.S
 	$(AS) -R $(ASFLAGS) -o $@ $<
+
+main.elf: main.o init.o uf8.o
+	$(LD) -o $@ -T link.lds $(LDFLAGS) $^
+	
 %.elf: %.S
 	$(AS) -R $(ASFLAGS) -o $(@:.elf=.o) $<
 	$(CROSS_COMPILE)ld -o $@ -T link.lds $(LDFLAGS) $(@:.elf=.o)
@@ -28,7 +34,8 @@ BINS = \
 	sb.asmbin \
 	uart.asmbin \
 	irqtrap.asmbin\
-	uf8.asmbin
+	main.asmbin
+
 
 # Clear the .DEFAULT_GOAL special variable, so that the following turns
 # to the first target after .DEFAULT_GOAL is not set.
