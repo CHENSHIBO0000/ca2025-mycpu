@@ -60,3 +60,19 @@ test_run_dir/
 **/src/test/scala/riscv/compliance/ComplianceTest.scala
 **/src/main/resources/test.asmbin
 **/src/main/resources/test_*.asmbin
+
+
+
+# Python venv
+.venv/
+venv/
+
+*.o
+*.elf
+*.asmbin
+
+# VSCode
+.vscode/
+
+# Log
+*.log
